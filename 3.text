@@ -1,4 +1,46 @@
 
+//利用ascII码将"a"到"z"的出现顺序与频率可视化
+String[] txt;
+//PFont font1= createFont("Arial",60);
+float posx=0;
+float posy=0;
+float s=20;
+float x0=300;
+float y0=300;
+char c;
+int pc;
+int count;
+float x=width/2, y=height/2, r=20;
+
+particle [] p=new particle[26];
+void setup() {
+  frameRate(150);
+  size(600, 600);
+  txt=loadStrings("bob.txt");
+  background(190, 255, 130);
+  //textFont(font1);
+  textSize(60);
+  noStroke();
+  fill(0);
+  float angle=0;
+  float Dangle=2*PI/26;
+  for (int i=0; i<p.length; i++) {
+    p[i]=new particle(x0+cos(angle)*200, y0+sin(angle)*200, 97+i);
+    angle+=Dangle;
+  }
+}
+void draw() {
+  fill(190, 255, 130, 20);
+  rect(0, 0, width, height);//刷新背景
+
+  for (int i=0; i<p.length; i++) {
+    p[i].drawparticle();
+  }//初始化
+
+  count=0;
+  pc=int( txt[1].charAt(1))-97;
+
+
   for (int i=0; i < txt.length; i++) {
     for (int j=0; j < txt[i].length(); j++) {
       count+=1;
@@ -9,14 +51,15 @@
       stroke(p[pc].c);
       if (frameCount==count) {
         fill(0);
-        text(c, posx, posy);
-        strokeWeight(2);
+        //text(c, posx, posy);
+        strokeWeight(3);
         if (int(c)>=97) {
           line (p[pc].x, p[pc].y, p[int(c)-97].x, p[int(c)-97].y);
         }
         if (int(c)>=65 && int(c)<=90) {
           line (p[pc].x, p[pc].y, p[int(c)-65].x, p[int(c)-65].y);
         }
+        p[pc].r+=4;
       }
       if (int(c)>=97) {
         pc=int(c)-97;
@@ -24,12 +67,15 @@
       if (int(c)>=65 && int(c)<=90) {
         pc=int(c)-65;
       }
+
       noStroke();
+
+      posx +=textWidth(c);
     }
-    posx +=textWidth(c);
+    posx=0;
+    posy+=s+5;
   }
-  //posx=0;
-  posy+=s+5;
+
 }
 
 
@@ -67,4 +113,24 @@ class particle {
     fill(c);
     ellipse(x, y, r, r);
   }
+}    posx +=cx;
+  }
+  rectMode(CORNER);
+  rect(xx, yy, cx, ss);
 }
+class particle {
+  float x;
+  float y;
+  float r;
+  color c;
+  int asc;
+  particle(float xx, float yy, int asc2) {
+    x=xx;
+    y=yy;
+    r=10;
+    asc=asc2;
+    c=color(255, 255-(asc-97)*10, 160);
+  }
+  void drawparticle() {
+    fill(c);
+   
