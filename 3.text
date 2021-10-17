@@ -1,0 +1,70 @@
+
+  for (int i=0; i < txt.length; i++) {
+    for (int j=0; j < txt[i].length(); j++) {
+      count+=1;
+      //textSize(s);
+      c= txt[i].charAt(j);
+      //drawshape(posx, posy, s, c);
+
+      stroke(p[pc].c);
+      if (frameCount==count) {
+        fill(0);
+        text(c, posx, posy);
+        strokeWeight(2);
+        if (int(c)>=97) {
+          line (p[pc].x, p[pc].y, p[int(c)-97].x, p[int(c)-97].y);
+        }
+        if (int(c)>=65 && int(c)<=90) {
+          line (p[pc].x, p[pc].y, p[int(c)-65].x, p[int(c)-65].y);
+        }
+      }
+      if (int(c)>=97) {
+        pc=int(c)-97;
+      }
+      if (int(c)>=65 && int(c)<=90) {
+        pc=int(c)-65;
+      }
+      noStroke();
+    }
+    posx +=textWidth(c);
+  }
+  //posx=0;
+  posy+=s+5;
+}
+
+
+void drawshape(float xx, float yy, float ss, char cc) {
+  float cx;
+  cx=textWidth(cc);
+  if (int(cc)>96) {
+    fill(255, 255-(int(cc)-97)*10);
+  }
+  if (int(cc)<96) {
+    fill(255, 255-(int(cc)-97)*10);
+  }
+  if (int(cc)==32) {
+    noFill();
+    cx=textWidth(" ");
+    posx +=cx;
+  }
+  rectMode(CORNER);
+  rect(xx, yy, cx, ss);
+}
+class particle {
+  float x;
+  float y;
+  float r;
+  color c;
+  int asc;
+  particle(float xx, float yy, int asc2) {
+    x=xx;
+    y=yy;
+    r=10;
+    asc=asc2;
+    c=color(255, 255-(asc-97)*10, 160);
+  }
+  void drawparticle() {
+    fill(c);
+    ellipse(x, y, r, r);
+  }
+}
