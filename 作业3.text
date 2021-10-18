@@ -1,4 +1,3 @@
-
 //利用ascII码将"a"到"z"的出现顺序与频率可视化
 String[] txt;
 //PFont font1= createFont("Arial",60);
@@ -46,10 +45,11 @@ void draw() {
       count+=1;
       //textSize(s);
       c= txt[i].charAt(j);
-      //drawshape(posx, posy, s, c);
+
 
       stroke(p[pc].c);
       if (frameCount==count) {
+        //drawshape(posx, i*s, s, c);
         fill(0);
         //text(c, posx, posy);
         strokeWeight(3);
@@ -73,14 +73,13 @@ void draw() {
       posx +=textWidth(c);
     }
     posx=0;
-    posy+=s+5;
   }
-
 }
 
 
 void drawshape(float xx, float yy, float ss, char cc) {
   float cx;
+ // noStroke();
   cx=textWidth(cc);
   if (int(cc)>96) {
     fill(255, 255-(int(cc)-97)*10);
@@ -113,24 +112,4 @@ class particle {
     fill(c);
     ellipse(x, y, r, r);
   }
-}    posx +=cx;
-  }
-  rectMode(CORNER);
-  rect(xx, yy, cx, ss);
 }
-class particle {
-  float x;
-  float y;
-  float r;
-  color c;
-  int asc;
-  particle(float xx, float yy, int asc2) {
-    x=xx;
-    y=yy;
-    r=10;
-    asc=asc2;
-    c=color(255, 255-(asc-97)*10, 160);
-  }
-  void drawparticle() {
-    fill(c);
-   
